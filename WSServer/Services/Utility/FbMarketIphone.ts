@@ -1,8 +1,8 @@
 
-import Iphone from "../model/Iphone.js";
+import Iphone from "../../model/Iphone.js";
 import FbFetchIphoneAb from "./FbFetchIphoneAb.js";
 
-
+// possibly fetch for more stuff 
 export default async function GetIphone(): Promise<Iphone[] | null>  {
 
 

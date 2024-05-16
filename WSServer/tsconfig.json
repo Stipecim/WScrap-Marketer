@@ -8,10 +8,12 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
  
   
   },
-  "include": ["./**/*.ts"],
+  "include": ["./**/*.ts", "serviceAccountKey.json"],
   "exclude": ["node_modules", "dist"],
   
 }

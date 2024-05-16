@@ -1,4 +1,4 @@
-// web scrape by Stipecim
+// web scrape by Stipecim reuse for ebay scrapp to get avreage price or other ways 
 import HandleResponse from "./modules/handle-response.js";
 import * as cheerio from "cheerio";
 

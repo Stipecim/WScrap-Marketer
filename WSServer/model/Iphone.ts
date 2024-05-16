@@ -9,3 +9,5 @@ export default interface Iphone {
     location: string | null;
 
 }
+
+// more things has to be added to match database 
