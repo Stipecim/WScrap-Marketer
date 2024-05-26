@@ -1,13 +1,15 @@
 
 // different structrue 
 
-import { Expo, ExpoPushMessage } from 'expo-server-sdk';
+import { Expo, ExpoPushMessage, ExpoPushToken } from 'expo-server-sdk';
 
 
 
-export async function sendPushNotificationsAsync(pushToken: string, title: string, body: string){
+
+export async function sendPushNotificationsAsync(pushToken: ExpoPushToken, title: string, body: string){
   // Create a new Expo SDK client
   let expo = new Expo();
+  
 
 
 
@@ -16,6 +18,10 @@ export async function sendPushNotificationsAsync(pushToken: string, title: strin
     console.error(`Push token ${pushToken} is not a valid Expo push token`);
     return;
   }
+
+
+
+
 
   // Create a message
   let messages: ExpoPushMessage[] = [{

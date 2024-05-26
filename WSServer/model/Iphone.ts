@@ -2,6 +2,8 @@ export default interface Iphone {
 
     id: number;
 
+    uniqueId: string;
+
     name: string | null;
 
     price: string | null;

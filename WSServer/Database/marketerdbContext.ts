@@ -1,9 +1,10 @@
 import sqlite from 'sqlite3';
-import path from 'path'
+import path from 'path';
+
 
 
 export default class LOCALDB {
-    _db;
+    private _db;
     constructor(message: string) {
         const __filename = new URL(import.meta.url).pathname;
         let projectRoot = path.dirname(path.dirname(path.dirname(__filename)));
@@ -45,15 +46,44 @@ export default class LOCALDB {
         return {
 
             insert: () => {
-                let sql = `INSERT INTO ${table} (${columnsPart}) VALUES (${placeholders})`;
+                return new Promise((resolve, reject) =>{
+                    let sql = `INSERT INTO ${table} (${columnsPart}) VALUES (${placeholders})`;
 
-                this._db.run(sql, values, function(err) {
-                    if (err) {
-                        return console.error(err.message);
-                    }
-                    console.log(`A new row has been inserted into table ${table} with ID ${this.lastID}`);
+                    this._db.run(sql, values, function(err) {
+                        if(err) { console.error(err); reject(false); }
+                        console.log(`A new row has been inserted into table ${table} with ID ${this.lastID}`);
+                        resolve(true);
+                    });
                 });
+                
+            },
+
+            get: () => {
+                return new Promise((resolve, reject) => {
+                    let sql = `SELECT * FROM ${table} WHERE id = ${placeholders}`;
+
+                    this._db.get(sql, values, function(err, row: any){
+                        if(err) { console.error(err); reject(new Error("Database Error")); }
+                        resolve(row);
+                    });
+                });
+                
+            },
+
+        
+            emptyTableAll: () => { 
+                return new Promise((resolve, reject) => {
+                    let sql = `DELETE FROM ${table}`;
+
+                    this._db.run(sql, function(err){
+                        if(err) { console.error(err); reject(false); }
+                        console.log(`Successfully deleted data from table ${table}`);
+                        resolve(true);
+                    });
+                });
+                
             }
+
 
         };
     }
