@@ -9,8 +9,8 @@ import startBackgroundTask from "./Tasks/backgroundTask.js";
 
 // Api Controllers
     import iPhoneProductRoutes from "./Api/Controllers/iPhoneProduct.js";
-    import getToken from "./Api/Controllers/expoDevicePushToken.js";
-    
+    import updateToken from "./Api/Controllers/UpdateExpoPushToken.js";
+    import getFbListing from "./Api/Controllers/GetFbListing.js";
 //--------------
 
 // Settings
@@ -21,12 +21,15 @@ app.use(cors({
 }));
 //-------- new spesific cors needed
 
+
+
 // ------- BackgroundTasks ----- ///
     startBackgroundTask();
 // -----------------------------///
 
 app.use("/iphoneproducts", iPhoneProductRoutes);
-app.use("/postToken", getToken);
+app.use("/updateToken", updateToken);
+app.use("/getfblisting", getFbListing);
 
 
 

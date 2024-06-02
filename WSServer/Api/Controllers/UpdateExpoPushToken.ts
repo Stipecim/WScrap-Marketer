@@ -1,13 +1,14 @@
 import { NextFunction, Request, Response } from "express";
 import express from "express";
-import UpdateExpoPushTokenService from "../../Services/updateExpoPushTokenService.js";
+import UpdateExpoPushTokenService from "../../Services/UpdateExpoPushTokenService.js";
+
 
 
 const router = express.Router();
 
 
 router.post("/", async(req: Request, res: Response, next: NextFunction) => {
-    const expoPushToken = req.body;
+    const expoPushToken = req.body.data;
 
     const hasUpdated = await UpdateExpoPushTokenService(expoPushToken);
 
@@ -20,7 +21,7 @@ router.post("/", async(req: Request, res: Response, next: NextFunction) => {
     res.status(500).json({
         Update: "Failed"
     });
-    // access data base with service and store token, also make comparison
+    
 })
 
 export default router;

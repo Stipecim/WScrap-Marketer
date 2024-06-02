@@ -4,11 +4,11 @@ export default interface Iphone {
 
     uniqueId: string;
 
-    name: string | null;
+    name: string;
 
-    price: string | null;
+    price: string;
 
-    location: string | null;
+    location: string;
 
 }
 

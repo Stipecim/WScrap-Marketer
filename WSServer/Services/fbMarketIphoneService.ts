@@ -1,5 +1,8 @@
+import { ExpoPushTicket } from "expo-server-sdk";
 import LOCALDB from "../Database/marketerdbContext.js";
 import Iphone from "../model/Iphone.js";
+import { sendPushNotificationsAsync } from "./Firebase/pushNotification.js";
+import { ExpoPushToken } from "../model/ExpoPushToken.js";
 
 export default async function fbMarketIphoneService(iphones: Iphone[]) {
     
@@ -21,7 +24,7 @@ export default async function fbMarketIphoneService(iphones: Iphone[]) {
             // if table occupied get first id 0 from table
             const iphone: Iphone = await db.generateQuery("iPhone", {id: 0}).get() as Iphone;
             
-            // if product id has same name as one in database do not do anything  
+            // if product id has same uniqueId as one in database do not do anything  
             if(iphone.uniqueId !== iphones[0].uniqueId) {
                 
                 // Have the table contents been deleted 
@@ -35,6 +38,14 @@ export default async function fbMarketIphoneService(iphones: Iphone[]) {
                 }
 
                 // push a notification 
+
+                // get expo token from database
+                //const expoPushToken = await db.generateQuery("expoPushToken", {id:0}).get() as ExpoPushToken;
+
+                //if(expoPushToken === undefined) throw new Error("Unable to get token from database");
+
+                //sendPushNotificationsAsync(expoPushToken.token, iphone.name, iphone.price);
+                console.log("PushNotification-Sent");
             }
         }
 
@@ -44,5 +55,5 @@ export default async function fbMarketIphoneService(iphones: Iphone[]) {
         console.log(error);
     }
     
-    
+    db.Close();
 }

@@ -34,7 +34,9 @@ export default class LOCALDB {
             });
         
         });
-    } 
+    }
+
+
         
     generateQuery(table: string, data: object) {
             const columns = Object.keys(data);
@@ -60,15 +62,30 @@ export default class LOCALDB {
 
             get: () => {
                 return new Promise((resolve, reject) => {
-                    let sql = `SELECT * FROM ${table} WHERE id = ${placeholders}`;
+                    let sql = `SELECT * FROM ${table} WHERE ${columnsPart} = ${placeholders}`;
 
                     this._db.get(sql, values, function(err, row: any){
-                        if(err) { console.error(err); reject(new Error("Database Error")); }
+                        if(err) { console.error(err); reject(undefined); }
                         resolve(row);
                     });
                 });
                 
             },
+
+
+            getAll: () => {
+                return new Promise((resolve, reject) => {
+                    let sql = `SELECT * FROM ${table}`;
+
+                    this._db.all(sql, values, function(err, row: any[]){
+                        if(err) { console.error(err); reject(undefined); }
+                        resolve(row);
+                    });
+                });
+                
+            },
+
+
 
         
             emptyTableAll: () => { 
@@ -86,5 +103,10 @@ export default class LOCALDB {
 
 
         };
+    }
+
+    Close() {
+        this._db.close();
+        console.log("Disconnected form db");
     }
 }

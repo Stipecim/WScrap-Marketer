@@ -22,7 +22,7 @@ export async function sendPushNotificationsAsync(pushToken: ExpoPushToken, title
 
 
 
-
+  
   // Create a message
   let messages: ExpoPushMessage[] = [{
     to: pushToken,
