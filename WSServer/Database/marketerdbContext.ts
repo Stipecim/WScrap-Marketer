@@ -6,12 +6,12 @@ import path from 'path';
 export default class LOCALDB {
     private _db;
     constructor(message: string) {
-        const __filename = new URL(import.meta.url).pathname;
-        let projectRoot = path.dirname(path.dirname(path.dirname(__filename)));
-        const dirname = path.join(projectRoot, 'Database');
+        // const __filename = new URL(import.meta.url).pathname;
+        // let projectRoot = path.dirname(path.dirname(path.dirname(__filename)));
+        // const dirname = path.join(projectRoot, 'Database');
 
         
-        this._db = new sqlite.Database("C:/Users/vboxuser/Desktop/Project/WScrap-Marketer/WSServer/Database/marketer.db", sqlite.OPEN_READWRITE, (err) => {
+        this._db = new sqlite.Database(path.resolve(__dirname, "marketer.db"), sqlite.OPEN_READWRITE, (err) => {
             if(err) {
                 return console.error(err.message);
             }
@@ -23,7 +23,7 @@ export default class LOCALDB {
         return new Promise ((resolve, reject) => {
 
             const sql = `SELECT COUNT(*) AS count FROM ${table}`;
-            this._db.get(sql, function(err, row: any) {
+            this._db.get(sql, function(err:any , row: any) {
                
                 if(err) { console.error(err); reject(new Error("Database Error")); }
                 
@@ -53,7 +53,7 @@ export default class LOCALDB {
 
                     this._db.run(sql, values, function(err) {
                         if(err) { console.error(err); reject(false); }
-                        console.log(`A new row has been inserted into table ${table} with ID ${this.lastID}`);
+                        console.log(`A new row has been inserted into table ${table}`);
                         resolve(true);
                     });
                 });
@@ -77,7 +77,7 @@ export default class LOCALDB {
                 return new Promise((resolve, reject) => {
                     let sql = `SELECT * FROM ${table}`;
 
-                    this._db.all(sql, values, function(err, row: any[]){
+                    this._db.all(sql, function(err, row: any[]){
                         if(err) { console.error(err); reject(undefined); }
                         resolve(row);
                     });

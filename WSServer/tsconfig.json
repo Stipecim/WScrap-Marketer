@@ -4,6 +4,6 @@
         "outDir": "../dist/wsserver"
     },
     "include": [
-        "src/**/*.ts"
-    ]
+        "./**/*.ts"
+   ]
 }

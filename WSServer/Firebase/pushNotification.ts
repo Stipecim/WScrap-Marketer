@@ -28,6 +28,8 @@ export async function sendPushNotificationsAsync(pushToken: ExpoPushToken, title
     to: pushToken,
     title: title,
     body: body,
+    data: { someLocalData: 'goes here' }
+
   }];
 
   // Send the notification

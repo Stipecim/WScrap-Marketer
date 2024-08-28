@@ -9,18 +9,21 @@ const router = express.Router();
 
 router.post("/", async(req: Request, res: Response, next: NextFunction) => {
     const expoPushToken = req.body.data;
+    console.log("expoPushToken", expoPushToken);
 
     const hasUpdated = await UpdateExpoPushTokenService(expoPushToken);
 
     if(hasUpdated) {
         res.status(200).json({
-            Update: "Successful"
+            TokenUpdate: "Successful"
+        });
+    }else {
+        res.status(500).json({
+            TokenUpdate: "Failed"
         });
     }
 
-    res.status(500).json({
-        Update: "Failed"
-    });
+    
     
 })
 

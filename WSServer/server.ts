@@ -1,9 +1,20 @@
-import http from "http";
-import app from "./App.js";
+import readline from 'readline';
+import program from './commands/cli-commands';
 
-const port = process.env.PORT || 6553;
 
-const server = http.createServer(app);
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+  prompt: 'Server: ',
+});
 
-server.listen(port);
 
+rl.on('line', (input) => {
+  try {
+    program.parse(['node', 'cli', ...input.trim().split(' ')]);
+  } catch (err: any) {
+    rl.prompt();
+  }
+});
+
+rl.prompt();

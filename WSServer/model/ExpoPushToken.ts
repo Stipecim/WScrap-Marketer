@@ -1,8 +1,9 @@
 
 
-export interface ExpoPushToken {
+export interface ExpoPushTokenDB {
     //id: number;
-    //deviceUniqueId: string; 
+    //deviceUniqueId: string;
+    
     token: string;
 }
 
