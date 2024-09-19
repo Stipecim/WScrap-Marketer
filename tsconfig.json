@@ -14,7 +14,6 @@
   
   },
   "include": [
-    "cli/**/*.ts",
     "wsserver/**/*.ts"
 , ],
   "exclude": ["node_modules", "dist"],

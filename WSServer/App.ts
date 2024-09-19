@@ -9,7 +9,7 @@ import startBackgroundTask from "./Tasks/backgroundTask.js";
 
 // Api Controllers
     import updateToken from "./Api/Controllers/UpdateExpoPushToken.js";
-    import getFbListing from "./Api/Controllers/GetFbListing.js";
+    import getFbListing from "./Api/Controllers/MarketItemsController.js";
 //--------------
 
 // Settings
@@ -27,8 +27,8 @@ app.use(cors({
 // -----------------------------///
 
 
-app.use("/updateToken", updateToken);
-app.use("/getfblisting", getFbListing);
+app.use("/updatetoken", updateToken);
+app.use("/marketitems", getFbListing); // look up this online for 
 
 
 

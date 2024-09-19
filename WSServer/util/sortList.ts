@@ -8,26 +8,20 @@ import marketItem from "../model/marketItem";
     with new timestamp.
 */
 
-export default function sortList(currentList: marketItem[], oldList: marketItem[]) {
 
-    const newList: marketItem[] = [];
+export default function sortList(newList: marketItem[], oldList: marketItem[]) {
 
-    console.log("sortList ------------------------------------------------");
-    currentList.forEach((cItem: marketItem, index: number) => {
-        let isInList = false;
-        oldList.forEach((oldItem: marketItem, _index: number, arr: marketItem[]) => {
-            if(cItem.name === oldItem.name) {
-                newList.push(oldItem);
-                isInList = true;
-                arr.length += 1;
+    
 
-            }
-        })
+    newList.forEach((newItem, index) => {
+        // Find the corresponding item in the old list using the key
+        const oldItem = oldList.find(oldItem => oldItem.name === newItem.name);
         
-        if(!isInList) {
-            newList.push(cItem);
-        } else isInList = false;
-    })
+        // If a match is found, replace the item in the new list with the old one
+        if (oldItem) {
+          newList[index].timeFetched = oldItem.timeFetched;
+        }
+    });
 
     return newList;
-}
+} 

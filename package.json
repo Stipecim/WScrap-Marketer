@@ -2,13 +2,13 @@
   "name": "web-scrap",
   "version": "1.0.0",
   "description": "",
-  "main": "cli.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "cli": "nodemon -e ts --exec \"npm run cli-build\"",
     "cli-build": "tsc && node dist/cli/bin/cli.js",
     "dev": "nodemon -e ts --exec \"npm run build\" ",
-    "build": "tsc && node dist/wsserver/server.js",
+    "build": "tsc && node dist/server.js",
     "pkg-debug": "pkg . --out-path build/debug"
   },
   "bin": {

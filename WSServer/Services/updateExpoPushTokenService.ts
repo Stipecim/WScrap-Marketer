@@ -20,25 +20,25 @@ export default async function UpdateExpoPushTokenService(token: ExpoPushToken) {
         if(Expo.isExpoPushToken(token)) {
 
             // is the table empty
-            const isEmpty = await db.isTableEmpty("expoPushToken");
+            const isEmpty = await db.isTableEmpty("expopushtoken");
 
             // if table empty insert into a table
             if(isEmpty) {
-                await db.generateQuery("expoPushToken", {token}).insert();
+                await db.generateQuery("expopushtoken", {token}).insert();
                 console.log("New Expo token inserted");
                 return true;
             } else {
 
                 // else delete contents of table than insert again 
-                const currentExpoPushToken = await db.generateQuery("expoPushToken", {}).getAll() as ExpoPushTokenDB[];
+                const currentExpoPushToken = await db.generateQuery("expopushtoken", {}).getAll() as ExpoPushTokenDB[];
                 
                 if(currentExpoPushToken[0].token !== token) {
 
-                    const hasDeleted = await db.generateQuery("expoPushToken", {}).emptyTableAll();
+                    const hasDeleted = await db.generateQuery("expopushtoken", {}).emptyTableAll();
 
                     if(hasDeleted) {
                         await db.generateQuery("expoPushToken", {token}).insert();
-                        console.log("ExpoToken has been updated");
+                        console.log("Database: ExpoToken has been updated");
                         return true;
                     }
                 }

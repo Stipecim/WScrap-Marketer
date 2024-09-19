@@ -1,4 +1,6 @@
 import LOCALDB from "../Database/marketerdbContext.js";
+import { sendPushNotificationsAsync } from "../Firebase/pushNotification.js";
+import SendPushNotificationService from "../Firebase/sendPushNotification.js";
 import marketItem from "../model/marketItem.js";
 import sortList from "../util/sortList.js";
 
@@ -22,10 +24,10 @@ export default async function MarketItemService(marketItems: marketItem[] | null
 
         switch(marketItems[0].platform) {
             case 'facebook':
-                tableName = "fbMarketItem";
+                tableName = "fbmarketitems";
                 break;
             case 'gumtree':
-                tableName = "gtMarketItem";
+                tableName = "gtmarketitems";
                 break;
         }
 
@@ -37,19 +39,20 @@ export default async function MarketItemService(marketItems: marketItem[] | null
                 await db.generateQuery(tableName, item).insert();
             }));
             
+            SendPushNotificationService(marketItems[0]);
         } else {
 
             // if table occupied get first id 0 from table
-            const items: marketItem [] = await db.generateQuery(tableName, {}).getAll() as marketItem[];
+            const fromDbMarketIems: marketItem [] = await db.generateQuery(tableName, {}).getAll() as marketItem[];
             
             // if product id has same uniqueId as one in database do not do anything  
-            if(items[0].name !== marketItems[0].name) {
-                console.log("items are not same!");
+            if(fromDbMarketIems[0].name !== marketItems[0].name) {
+                
                 // Have the table contents been deleted 
                 const hasDeleted = await db.generateQuery(tableName, {}).emptyTableAll();
                 
                 
-                const newMarketItemsList = sortList(marketItems, items);
+                const newMarketItemsList = sortList(marketItems, fromDbMarketIems);
                 
                 // if deleted insert new iphone products
                 if(hasDeleted) {
@@ -58,6 +61,7 @@ export default async function MarketItemService(marketItems: marketItem[] | null
                     }));
                 }
                 
+                SendPushNotificationService(marketItems[0]);
             }
         }
 

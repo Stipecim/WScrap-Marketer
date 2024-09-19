@@ -15,15 +15,13 @@ router.post("/", async(req: Request, res: Response, next: NextFunction) => {
 
     if(hasUpdated) {
         res.status(200).json({
-            TokenUpdate: "Successful"
+            TokenUpdate: "Token Successfully Updated"
         });
     }else {
         res.status(500).json({
-            TokenUpdate: "Failed"
+            TokenUpdate: "Failed to update token"
         });
     }
-
-    
     
 })
 

@@ -10,8 +10,9 @@ export default class LOCALDB {
         // let projectRoot = path.dirname(path.dirname(path.dirname(__filename)));
         // const dirname = path.join(projectRoot, 'Database');
 
+        //console.log(path.resolve(__dirname, "../wsserver/database/marketer.db"));
         
-        this._db = new sqlite.Database(path.resolve(__dirname, "marketer.db"), sqlite.OPEN_READWRITE, (err) => {
+        this._db = new sqlite.Database("C:\\Users\\vboxuser\\Desktop\\Project\\wscrap-marketer\\wsserver\\database\\marketer.db", sqlite.OPEN_READWRITE, (err:any) => {
             if(err) {
                 return console.error(err.message);
             }
@@ -19,6 +20,7 @@ export default class LOCALDB {
         });
     }
 
+   
     async isTableEmpty(table: string): Promise<any> { 
         return new Promise ((resolve, reject) => {
 
