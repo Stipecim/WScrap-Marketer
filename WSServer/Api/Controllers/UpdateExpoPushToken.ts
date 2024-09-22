@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post("/", async(req: Request, res: Response, next: NextFunction) => {
     const expoPushToken = req.body.data;
-    console.log("expoPushToken", expoPushToken);
+    console.log("NewExpoPushToken: ", expoPushToken);
 
     const hasUpdated = await UpdateExpoPushTokenService(expoPushToken);
 

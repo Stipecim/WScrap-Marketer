@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
-import GetListingService from "../../Services/GetListingService.js";
 import marketItem from "../../model/marketItem.js";
+import GetMarketItemsService from "../../Services/GetMarketItemsService.js";
 const router = express.Router();
 
 export default router.get('/', async(req: Request, res: Response, next: NextFunction) => {
@@ -8,7 +8,7 @@ export default router.get('/', async(req: Request, res: Response, next: NextFunc
     console.log("Client Requesting from:", req.ip);
     
     
-    const marketItems: marketItem[] | undefined =  await GetListingService();
+    const marketItems: marketItem[] | undefined =  await GetMarketItemsService();
 
     console.log("All market items sent to client:\n", marketItems, "\n -----------------------------------------");
     

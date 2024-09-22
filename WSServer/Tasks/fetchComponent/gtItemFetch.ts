@@ -19,6 +19,7 @@ export default async function gtItemFetch() {
     const currentTime = new Date().toISOString();
 
     try {
+        //console.log( `https://www.gumtree.com/search?featured_filter=false&q=${item}&search_location=${itemLocation}&distance=${radius}&urgent_filter=false&sort=date&search_distance=10&search_scope=false&photos_filter=false`);
 
         const { data } = await  axios.get(
             `https://www.gumtree.com/search?featured_filter=false&q=${item}&search_location=${itemLocation}&distance=${radius}&urgent_filter=false&sort=date&search_distance=10&search_scope=false&photos_filter=false`

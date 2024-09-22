@@ -64,7 +64,7 @@ export default async function fbItemFetch() {
 
     const currentTime = new Date().toISOString();
 
-    
+    //console.log(`https://www.facebook.com/marketplace/${itemLocation}/search?sortBy=creation_time_descend&daysSinceListed=1&search%3Fdeliverymethod=local_pick_up&query=${item}`);
     try {
 
     // --------------------------- Loading page content --------------------- //
