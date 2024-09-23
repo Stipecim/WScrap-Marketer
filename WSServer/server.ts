@@ -1,7 +1,9 @@
-/// lets make this simple tomorrow
-// we do not want to overcomplicate this 
-// from here we will read fetchconfig evaluating readines
-// simple start 
+
+// 1. server crashed because of puppeter ran out of time due to waiting for selector. (possibly because Restricted performance
+// using vbox on low end laptop, after transpiling will run faster )
+// 2. iside here figure out how to modifiy fetchconfig for input trough cli
+// 3. time interval set to every 5 min fetch <---- set before transpiling 
+ 
 
 import fetchconfig from './fetchconfig.json';
 import http from 'http';
