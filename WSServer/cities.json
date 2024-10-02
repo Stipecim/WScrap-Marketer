@@ -1,17 +1,4 @@
 {
-  "facebook": {
-    "item": "iphone",
-    "location": "109478605737093"
-  },
-  "gumtree": {
-    "item": "iphone",
-    "location": "aberdeen",
-    "radius": "100"
-  },
-  "Server": {
-    "listen_ip": "192.168.1.53",
-    "port": 6553
-  },
   "Cities": [
     {
       "city": "London",

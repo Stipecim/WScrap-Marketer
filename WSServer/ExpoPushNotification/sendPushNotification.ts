@@ -17,12 +17,12 @@ export default async function SendPushNotificationService(marketItem: marketItem
 
         // console.log(expoPushToken, " |token| ");
 
-        if(expoPushToken[0].token === undefined) throw new Error("SendPushNotificationService: Unable to get token from database");
+        if(expoPushToken[0].token === undefined) console.log("\nServer: ExpoToken not inside database, use app to send ExpoPushToken\n");
 
         sendPushNotificationsAsync(expoPushToken[0].token, marketItem.name, marketItem.price);
-        console.log("PushNotification-Sent");
+        console.log("\nServer: PushNotification-Sent\n");
 
     } catch (err) {
-        console.log(err);
+        console.log(`\nServer-error: ${err}\n`);
     }
 }

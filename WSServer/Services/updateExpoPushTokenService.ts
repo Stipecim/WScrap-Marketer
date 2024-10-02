@@ -25,7 +25,7 @@ export default async function UpdateExpoPushTokenService(token: ExpoPushToken) {
             // if table empty insert into a table
             if(isEmpty) {
                 await db.generateQuery("expopushtoken", {token}).insert();
-                console.log("New Expo token inserted");
+                //console.log("New Expo token inserted");
                 return true;
             } else {
 
@@ -38,10 +38,12 @@ export default async function UpdateExpoPushTokenService(token: ExpoPushToken) {
 
                     if(hasDeleted) {
                         await db.generateQuery("expoPushToken", {token}).insert();
-                        console.log("Database: ExpoToken has been updated");
+                        //console.log("Database: ExpoToken has been updated");
                         return true;
                     }
                 }
+                
+                return true;
             }
 
         }

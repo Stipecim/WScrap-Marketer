@@ -1,8 +1,13 @@
-import fetchConfig from '../../fetchconfig.json';
+//import fetchConfig from '../../fetchconfig.json';
+//import fetchConfig from './fetchconfig.json';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import marketItem from '../../model/marketItem';
 import MarketItemService from '../../Services/MarketItemService';
+import evaluateConfig from '../../util/evaluateConfig';
+
+// import path from 'path';
+// import fs from 'fs';
 
 /*
     Using Axios to fetch html document from gumtree static
@@ -10,11 +15,17 @@ import MarketItemService from '../../Services/MarketItemService';
     sale.
 */
 
+// function getAssetPath(file:any) {
+//     return path.join(__dirname, file);
+// }
+
+// const fetchConfig = JSON.parse(fs.readFileSync(getAssetPath('fetchconfig.json'), 'utf8'));
+
 export default async function gtItemFetch() {
 
-    const item = fetchConfig.gumtree.item;
-    const itemLocation = fetchConfig.gumtree.location;
-    const radius = fetchConfig.gumtree.radius;
+    const item = evaluateConfig().evaluatedConfigCache?.eFetchConfig.item;
+    const itemLocation = evaluateConfig().evaluatedConfigCache?.eFetchConfig.location.gumtree;
+    const radius = evaluateConfig().evaluatedConfigCache?.eFetchConfig.radius.gumtree;
 
     const currentTime = new Date().toISOString();
 

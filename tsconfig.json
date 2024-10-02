@@ -15,7 +15,7 @@
   },
   "include": [
     "wsserver/**/*.ts"
-, ],
+, "build/marketerdbContext.ts", ],
   "exclude": ["node_modules", "dist"],
   
 }

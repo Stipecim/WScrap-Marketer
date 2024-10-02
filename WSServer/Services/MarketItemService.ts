@@ -1,6 +1,6 @@
 import LOCALDB from "../Database/marketerdbContext.js";
-import { sendPushNotificationsAsync } from "../Firebase/pushNotification.js";
-import SendPushNotificationService from "../Firebase/sendPushNotification.js";
+import { sendPushNotificationsAsync } from "../ExpoPushNotification/pushNotification.js";
+import SendPushNotificationService from "../ExpoPushNotification/sendPushNotification.js";
 import marketItem from "../model/marketItem.js";
 import sortList from "../util/sortList.js";
 
@@ -15,7 +15,7 @@ export default async function MarketItemService(marketItems: marketItem[] | null
     
     // initialization of READWRITE to marketer.db
     const db = new LOCALDB("MarketItemService");
-    console.log("MarketService")
+    
     try {
         
         if(!marketItems) throw new Error("MarketItemService: Something went wrong with fetching the data..");
@@ -66,7 +66,7 @@ export default async function MarketItemService(marketItems: marketItem[] | null
         }
 
     } catch (error) {
-        console.log(error);
+        console.log(`\n Server-error: ${error} \n`);
        
     } finally {
         if(db) {

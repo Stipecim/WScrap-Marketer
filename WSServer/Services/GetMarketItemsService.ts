@@ -21,7 +21,7 @@ export default async function GetMarketItemsService() {
         return sortedItems;
 
     } catch (error) {
-        console.error("Error: ", error);
+        console.error(`\n Server-error: ${error} \n`);
         return undefined;
     } finally {
         if(db) {

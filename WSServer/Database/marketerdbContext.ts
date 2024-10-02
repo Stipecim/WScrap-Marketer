@@ -1,22 +1,21 @@
 import sqlite from 'sqlite3';
 import path from 'path';
 
-
+const _dir = (process as any).pkg ? process.cwd() : __dirname;
+//const execDir = path.dirname(process.execPath);
+//const devEnvPath = path.resolve(__dirname, "../", "wsserver/database/marketer.db");
 
 export default class LOCALDB {
     private _db;
     constructor(message: string) {
-        // const __filename = new URL(import.meta.url).pathname;
-        // let projectRoot = path.dirname(path.dirname(path.dirname(__filename)));
-        // const dirname = path.join(projectRoot, 'Database');
 
-        //console.log(path.resolve(__dirname, "../wsserver/database/marketer.db"));
+        console.log(path.resolve(_dir, "marketer.db")) // just move marketer.db to dist/database 
         
-        this._db = new sqlite.Database("C:\\Users\\vboxuser\\Desktop\\Project\\wscrap-marketer\\wsserver\\database\\marketer.db", sqlite.OPEN_READWRITE, (err:any) => {
+        this._db = new sqlite.Database(path.resolve(_dir, "marketer.db"), sqlite.OPEN_READWRITE, (err:any) => {
             if(err) {
                 return console.error(err.message);
             }
-            console.log("Successfully connected to database.\n", message)
+            console.log("\nSuccessfully connected to database from: \n", message);
         });
     }
 
@@ -109,6 +108,6 @@ export default class LOCALDB {
 
     Close() {
         this._db.close();
-        console.log("Disconnected form db");
+        console.log("\nServer: Disconnected form db\n");
     }
 }

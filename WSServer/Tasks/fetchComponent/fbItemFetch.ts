@@ -1,11 +1,18 @@
 import puppeteer from 'puppeteer-extra';
 //import UserAgent from 'user-agents';
-import fetchConfig from '../../fetchconfig.json';
+//import fetchConfig from '../../cities.json';
 import * as cheerio from 'cheerio';
- 
+
+//import path from 'path';
+
+
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import fbItem from '../../model/marketItem';
 import MarketItemService from '../../Services/MarketItemService';
+import evaluateConfig from '../../util/evaluateConfig';
+
+
+
 
 puppeteer.use(StealthPlugin());
 
@@ -19,15 +26,17 @@ puppeteer.use(StealthPlugin());
 
 export default async function fbItemFetch() {
 
+
     // userConfig stored in variables 
-    const itemLocation = fetchConfig.facebook.location;
-    const item = fetchConfig.facebook.item
+    const itemLocation = evaluateConfig().evaluatedConfigCache?.eFetchConfig.location.facebook;
+    const item = evaluateConfig().evaluatedConfigCache?.eFetchConfig.item;
 
     /*const userAgent = new UserAgent(); */
 
+    console.log("\nServer: \n\n// --------------------------- Loading content(puppeteer) --------------------- //\n");
     const browser = await puppeteer.launch({ 
         headless: true,
-        /* args: [
+        args: [
             '--no-sandbox',
             '--disable-setuid-sandbox',
             '--disable-dev-shm-usage',
@@ -36,10 +45,18 @@ export default async function fbItemFetch() {
             '--no-zygote',
             '--single-process',
             '--disable-gpu'
-        ]*/
+        ],
+       //executablePath: path.join(_dir, "chrome/win64-129.0.6668.70/chrome-win64/chrome.exe")
     });
 
+    if (!browser) {
+        throw Error('\nPuppeteer: unable to launch browser !!\n')
+    }
+
+    console.log("\nPuppeteer: browser launched successfully\n");
     const page = await browser.newPage();
+
+    
 
     // using user agent fails to retrieve full information 
 
@@ -67,8 +84,8 @@ export default async function fbItemFetch() {
     //console.log(`https://www.facebook.com/marketplace/${itemLocation}/search?sortBy=creation_time_descend&daysSinceListed=1&search%3Fdeliverymethod=local_pick_up&query=${item}`);
     try {
 
-    // --------------------------- Loading page content --------------------- //
-        page.goto(
+    
+        await page.goto(
             `https://www.facebook.com/marketplace/${itemLocation}/search?sortBy=creation_time_descend&daysSinceListed=1&search%3Fdeliverymethod=local_pick_up&query=${item}`,
             {
                 waitUntil: 'networkidle2'
@@ -82,9 +99,9 @@ export default async function fbItemFetch() {
 
         if (isDialogPresent) {
             await page.click(closeButtonSelector);
-            console.log("Login dialog closed");
+            console.log("\nPuppeteer: Login dialog closed\n");
         } else {
-            console.log("Login dialog not found, no action taken");
+            console.log("\nPuppeteer: Login dialog not found, no action taken\n");
         }
 
         const dynamicElementSelector = '.x1lliihq.x6ikm8r.x10wlt62.x1n2onr6';
@@ -92,7 +109,7 @@ export default async function fbItemFetch() {
         await page.waitForSelector(dynamicElementSelector, { timeout: 20000 });
 
         const content = await page.content();
-    // -------------------------- page content loaded ---------------------------------------------
+        console.log("\n\n// --------------------------- page content loaded(puppeteer) --------------------- //\n");
         
         const $ = cheerio.load(content);
         
@@ -127,7 +144,13 @@ export default async function fbItemFetch() {
         MarketItemService(fbitems);
     
     } catch (err) {
-        console.log('error:',err);
+        console.log("\n\n// --------------------------- page content loaded(puppeteer) --------------------- //\n");
+        console.log(`\n Server-error: ${err} \n`);
+        
+    } finally {
+        
+        await browser.close();
+        console.log("\nPuppeteer: Browser closed.\n");
     }
 
 

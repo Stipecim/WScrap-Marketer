@@ -15,7 +15,7 @@ export async function sendPushNotificationsAsync(pushToken: ExpoPushToken, title
 
   // Check if the push token is valid
   if (!Expo.isExpoPushToken(pushToken)) {
-    console.error(`Push token ${pushToken} is not a valid Expo push token`);
+    console.error(`\nServer: Push token ${pushToken} is not a valid Expo push token\n`);
     return;
   }
 
@@ -36,9 +36,9 @@ export async function sendPushNotificationsAsync(pushToken: ExpoPushToken, title
   (async () => {
     try {
       let ticketChunk = await expo.sendPushNotificationsAsync(messages);
-      console.log(ticketChunk);
+      console.log(`\n Server: ${ticketChunk} \n`);
     } catch (error) {
-      console.error(error);
+      console.error(`\n Server-error: ${error} \n`);
     }
   })();
 }
