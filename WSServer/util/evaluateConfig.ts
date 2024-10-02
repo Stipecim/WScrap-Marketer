@@ -38,7 +38,7 @@ export interface evaluatedConfig {
 
 
 let evaluatedConfigCache: evaluatedConfig | undefined = undefined;
-let eFlag = false;
+//let eFlag = false;
 
 export default function evaluateConfig() {
     
@@ -85,7 +85,8 @@ export default function evaluateConfig() {
             
                 for (const iface of interfaces) {
                   
-                  if (iface.family === 'IPv4' && !iface.internal) {
+                  if (iface.family === 'IPv4' && !iface.internal && iface.address === config.server.host) {
+
                     ip = true;
                   }
                 }
