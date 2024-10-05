@@ -3,7 +3,7 @@ import puppeteer from 'puppeteer-extra';
 //import fetchConfig from '../../cities.json';
 import * as cheerio from 'cheerio';
 
-//import path from 'path';
+import path from 'path';
 
 
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
@@ -31,6 +31,7 @@ export default async function fbItemFetch() {
     const itemLocation = evaluateConfig().evaluatedConfigCache?.eFetchConfig.location.facebook;
     const item = evaluateConfig().evaluatedConfigCache?.eFetchConfig.item;
 
+    const _dir = process.cwd();
     /*const userAgent = new UserAgent(); */
 
     console.log("\nServer: \n\n// --------------------------- Loading content(puppeteer) --------------------- //\n");
@@ -46,7 +47,7 @@ export default async function fbItemFetch() {
             '--single-process',
             '--disable-gpu'
         ],
-       //executablePath: path.join(_dir, "chrome/win64-129.0.6668.70/chrome-win64/chrome.exe")
+       executablePath: path.join(_dir, "chrome/win64-129.0.6668.70/chrome-win64/chrome.exe")
     });
 
     if (!browser) {

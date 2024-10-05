@@ -23,7 +23,8 @@
       "C:/Users/vboxuser/Desktop/prjct/WScrap-Marketer/WSServer/Database/marketer.db",
       "fetchconfig.json",
       "node_modules/puppeteer-extra-plugin-stealth",
-      "node_modules/puppeteer-extra"
+      "node_modules/puppeteer-extra",
+      "node_modules/sqlite3"
     ],
     "targets": [
       "node16-win-x64"
