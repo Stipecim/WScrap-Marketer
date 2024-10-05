@@ -1,7 +1,7 @@
 > **Note:** This is my first application, so obviously might have security or any other issues.
 > This server only works for uk. I might extend it in near future.
 # Web Scrap-Marketer
-It is a server for the [Marketer app](https://github.com/Stipecim/Marketer) that scrapes data from Facebook and Gumtree and sends real-time notifications to your phone through the Marketer app. The server scrapes data every 1-5 minutes, performing no more than 1,000 hits per 24 hours, which is a reasonable amount and does not stress Facebook or Gumtree servers while checking for updated items on listings.
+It is a server for the [Marketer app](https://github.com/Stipecim/Marketer) that scrapes data from Facebook and Gumtree and sends real-time notifications to your phone through the Marketer app. The server scrapes data every 1-5 minutes, performing no more than 1,000 hits per 24 hours, which is a reasonable amount and does not stress Facebook or Gumtree servers checking for newly added items on listings.
 
 
 ## Installation
